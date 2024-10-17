@@ -6,7 +6,7 @@ const StyledView = styled(View);
 export default function Map() {
   return (
     <StyledView className="w-full h-full bg-green-200">
-      
+      {/* TODO Add MapView */}
     </StyledView>
   );
 }
