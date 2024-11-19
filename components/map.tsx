@@ -1,13 +1,13 @@
 import { StyleSheet, View } from 'react-native';
 import { styled } from "nativewind";
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const StyledView = styled(View);
 
 export default function Map() {
   return (
     <StyledView className="w-full h-full bg-green-200">
-      <MapView style={styles.map} />
+      <MapView style={styles.map} provider={PROVIDER_GOOGLE} key={process.env.GOOGLE_MAPS_KEY}/>
     </StyledView>
   );
 }
