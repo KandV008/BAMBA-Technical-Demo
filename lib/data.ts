@@ -1,6 +1,4 @@
-import { GeoJsonProperties } from "geojson";
-
-export const data: GeoJsonProperties = {
+export const GeoJsonData = {
     "type": "FeatureCollection",
     "name": "villanueva_streets_bamba",
     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
