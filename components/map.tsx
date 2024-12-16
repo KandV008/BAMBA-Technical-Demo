@@ -1,42 +1,51 @@
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import { styled } from "nativewind";
 import MapView, {
   Geojson,
   LatLng,
   Marker,
+  Polyline,
   PROVIDER_GOOGLE,
   Region,
 } from "react-native-maps";
 import { GeoJsonData } from "@/lib/data";
-import { MutableRefObject } from "react";
+import { MutableRefObject, useState } from "react";
+import React from "react";
+import MapViewDirections from "react-native-maps-directions";
 
 const StyledView = styled(View);
+const key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_KEY
 
 interface MapProps {
   mapType: "standard" | "satellite";
   initialRegion: Region;
   mapRef: MutableRefObject<MapView | null>;
   results: any[];
+  userLocation: LatLng;
 }
 
 export default function Map({
   mapType,
   initialRegion,
-  mapRef: ref,
+  mapRef,
   results,
+  userLocation,
 }: MapProps) {
   const features = GeoJsonData.features;
+  const [origin, setOrigin] = useState<LatLng>(userLocation);
+  const [destination, setDestination] = useState<LatLng | null>(null);
 
   return (
     <StyledView className="w-full h-full bg-green-200">
       <MapView
-        ref={ref}
+        ref={mapRef}
         style={styles.map}
         provider={PROVIDER_GOOGLE}
-        key={process.env.GOOGLE_MAPS_KEY}
         mapType={mapType}
         googleMapId={process.env.GOOGLE_MAPS_ID}
         initialRegion={initialRegion}
+        showsUserLocation
+        showsMyLocationButton
       >
         {features.map(renderGeojsonFeature)}
         {results.length
@@ -50,10 +59,47 @@ export default function Map({
                   key={`search-item-${i}`}
                   coordinate={coord}
                   title={item.name}
+                  onPress={(event) => {
+                    event.persist(); 
+                    Alert.alert(
+                      "Entrar en modo navegación",
+                      "¿Quieres ir hasta ahí?",
+                      [
+                        {
+                          text: "Cancelar",
+                          onPress: () =>
+                            setDestination(null),
+                          style: "cancel",
+                        },
+                        {
+                          text: "Sí",
+                          onPress: () =>
+                            setDestination(event.nativeEvent.coordinate),
+                          style: "default",
+                        },
+                      ]
+                    );
+                  }}
                 />
               );
             })
           : null}
+        <Marker
+          coordinate={userLocation}
+          image={require("../assets/images/user_location.png")}
+          title="Tú ubicación"
+        />
+        {destination ? (
+          <MapViewDirections
+            origin={origin}
+            destination={destination}
+            apikey={key!}
+            strokeColor="blue"
+            strokeWidth={8}
+          />
+        ) : (
+          <></>
+        )}
       </MapView>
     </StyledView>
   );
