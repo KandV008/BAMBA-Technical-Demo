@@ -13,6 +13,7 @@ import MapViewDirections from "react-native-maps-directions";
 import { GeoJsonData } from "@/lib/data";
 import DestinyMarker from "./markers/destinyMarker";
 import OriginMarker from "./markers/originMarker";
+import Button from "./buttons/button";
 
 const StyledView = styled(View);
 const key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_KEY;
@@ -72,7 +73,16 @@ export default function Map({
             strokeWidth={8}
           />
         )}
+        
       </MapView>
+      {destination && (
+        <StyledView className="absolute left-0 right-0 h-48 bottom-20">
+          <Button
+            buttonText={"Desmarcar"}
+            onPress={() => setDestination(null)}
+          />
+        </StyledView>
+      )}
     </StyledView>
   );
 }
