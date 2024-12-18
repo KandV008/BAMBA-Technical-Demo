@@ -7,16 +7,28 @@ const StyledView = styled(View);
 const StyledInput = styled(TextInput);
 
 interface SearchBarProps {
-  action: (input: string) => void
+  action: (input: string) => void;
 }
 
+/**
+ * SearchBar component.
+ * Displays a search input field with a search icon and handles text input submission.
+ *
+ * @param action Function to call with the input text when the user submits the search.
+ * 
+ * @returns {JSX.Element} A styled search bar component with an input field and search icon.
+ */
 export default function SearchBar({ action }: SearchBarProps) {
   const [inputText, setInputText] = useState("");
 
+  /**
+   * Handles the submission of the text input.
+   * Calls the `action` function with the input text and clears the input field.
+   */
   const handleTextSubmit = () => {
     console.log("Search:", inputText);
-    action(inputText)
-    setInputText("")
+    action(inputText);
+    setInputText("");
   };
 
   return (

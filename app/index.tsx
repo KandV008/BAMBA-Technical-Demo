@@ -12,15 +12,18 @@ import EmergencyButton from "@/components/buttons/emergencyButton";
 
 const StyledView = styled(View);
 
+// Constants for initial map settings
 const INITIAL_LAT = 40.445414;
 const INITIAL_LNG = -4.001441;
 const LATITUDE_DELTA = 0.02;
 const LONGITUDE_DELTA = 0.02;
 
+// Google Maps API configuration
 const googleApisUrl =
   "https://maps.googleapis.com/maps/api/place/textsearch/json";
 const key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_KEY;
 
+// Initial region for the map
 const initialRegion: Region = {
   latitude: INITIAL_LAT,
   longitude: INITIAL_LNG,
@@ -28,12 +31,20 @@ const initialRegion: Region = {
   longitudeDelta: LONGITUDE_DELTA,
 };
 
+// Default user location
 const userLocation: LatLng = {
   latitude: INITIAL_LAT,
   longitude: INITIAL_LNG,
 };
 
-async function fetchSearchResults(searchText: string, location: string) {
+/**
+ * Fetches search results from Google Maps API.
+ *
+ * @param {string} searchText - The text to search for.
+ * @param {string} location - The location coordinates as a string.
+ * @returns {Promise<any[]>} - A promise that resolves to an array of search results.
+ */
+async function fetchSearchResults(searchText: string, location: string): Promise<any[]> {
   const url = `${googleApisUrl}?query=${encodeURIComponent(
     searchText
   )}&location=${location}&radius=20&key=${key}`;
@@ -47,10 +58,16 @@ async function fetchSearchResults(searchText: string, location: string) {
   return data.results || [];
 }
 
+/**
+ * Adjusts the map view to fit provided coordinates.
+ *
+ * @param {React.RefObject<MapView>} mapRef - Reference to the MapView component.
+ * @param {LatLng[]} coords - Array of coordinates to fit.
+ */
 function handleMapCoordinates(
   mapRef: React.RefObject<MapView>,
   coords: LatLng[]
-) {
+): void {
   if (coords.length) {
     mapRef.current?.fitToCoordinates(coords, {
       edgePadding: {
@@ -65,13 +82,19 @@ function handleMapCoordinates(
   }
 }
 
-export default function Index() {
+/**
+ * Main component of the application.
+ * It manages the map, search, and UI interactions.
+ *
+ * @returns {JSX.Element} The Index component.
+ */
+export default function Index(): JSX.Element {
   const [mapType, setMapType] = useState<MapTypeEnum>("standard");
-  const selectMapType = (option: MapTypeEnum) => {
+  const selectMapType = (option: MapTypeEnum): void => {
     setMapType(option);
   };
 
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState<string>("");
   const [results, setResults] = useState<any[]>([]);
   const map = useRef<MapView | null>(null);
 
@@ -96,7 +119,7 @@ export default function Index() {
     }
   }, [searchText]);
 
-  const getInputSearch = (input: string) => {
+  const getInputSearch = (input: string): void => {
     setSearchText(input);
   };
 

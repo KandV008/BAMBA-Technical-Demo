@@ -8,11 +8,20 @@ const StyledButton = styled(TouchableOpacity);
 const StyledText = styled(Text);
 
 interface ToggleButtonProps {
-  buttonText: string,
-  children: React.ReactNode,
+  buttonText: string;
+  children: React.ReactNode;
 }
 
-export default function ToggleButton({ buttonText, children }: ToggleButtonProps) {
+/**
+ * ToggleButton component
+ * A button that toggles the visibility of additional content when pressed.
+ *
+ * @param {ToggleButtonProps} props - The properties for the ToggleButton component.
+ * @param {string} props.buttonText - The text displayed on the button.
+ * @param {React.ReactNode} props.children - The content displayed when the button is toggled open.
+ * @returns {JSX.Element} The ToggleButton component.
+ */
+export default function ToggleButton({ buttonText, children }: ToggleButtonProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
@@ -24,6 +33,7 @@ export default function ToggleButton({ buttonText, children }: ToggleButtonProps
         }}
         className="flex flex-row p-1 px-2 bg-white border-2 border-black rounded-full justify-evenly"
       >
+        {/* Icon */}
         {isExpanded ? (
           <Ionicons name="chevron-up" size={20} color="black" />
         ) : (
@@ -34,12 +44,8 @@ export default function ToggleButton({ buttonText, children }: ToggleButtonProps
       {/* Toggle Menu */}
       <StyledView className="m-3">
         <StyledView className="flex flex-col gap-1" role="none">
-          {isExpanded ? (
-            <StyledView className="w-full">
-              {children}
-            </StyledView>
-          ) : (
-            <></>
+          {isExpanded && (
+            <StyledView className="w-full">{children}</StyledView>
           )}
         </StyledView>
       </StyledView>

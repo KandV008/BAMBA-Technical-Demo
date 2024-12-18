@@ -1,4 +1,9 @@
-import { Alert, StyleSheet, View } from "react-native";
+import React, { MutableRefObject, useState } from "react";
+import {
+  Alert,
+  StyleSheet,
+  View,
+} from "react-native";
 import { styled } from "nativewind";
 import MapView, {
   Geojson,
@@ -8,13 +13,12 @@ import MapView, {
   PROVIDER_GOOGLE,
   Region,
 } from "react-native-maps";
-import { GeoJsonData } from "@/lib/data";
-import { MutableRefObject, useState } from "react";
-import React from "react";
 import MapViewDirections from "react-native-maps-directions";
+import { GeoJsonData } from "@/lib/data";
+import DestinyMarker from "./destinyMarker";
 
 const StyledView = styled(View);
-const key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_KEY
+const key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_KEY;
 
 interface MapProps {
   mapType: "standard" | "satellite";
@@ -30,7 +34,7 @@ export default function Map({
   mapRef,
   results,
   userLocation,
-}: MapProps) {
+}: MapProps): JSX.Element {
   const features = GeoJsonData.features;
   const [origin, setOrigin] = useState<LatLng>(userLocation);
   const [destination, setDestination] = useState<LatLng | null>(null);
@@ -42,54 +46,31 @@ export default function Map({
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         mapType={mapType}
-        googleMapId={process.env.GOOGLE_MAPS_ID}
         initialRegion={initialRegion}
         showsUserLocation
         showsMyLocationButton
       >
         {features.map(renderGeojsonFeature)}
-        {results.length
-          ? results.map((item, i) => {
-              const coord: LatLng = {
-                latitude: item.geometry.location.lat,
-                longitude: item.geometry.location.lng,
-              };
-              return (
-                <Marker
-                  key={`search-item-${i}`}
-                  coordinate={coord}
-                  title={item.name}
-                  onPress={(event) => {
-                    event.persist(); 
-                    Alert.alert(
-                      "Entrar en modo navegación",
-                      "¿Quieres ir hasta ahí?",
-                      [
-                        {
-                          text: "Cancelar",
-                          onPress: () =>
-                            setDestination(null),
-                          style: "cancel",
-                        },
-                        {
-                          text: "Sí",
-                          onPress: () =>
-                            setDestination(event.nativeEvent.coordinate),
-                          style: "default",
-                        },
-                      ]
-                    );
-                  }}
-                />
-              );
-            })
-          : null}
+        {results.map((item, i) => {
+          const coord: LatLng = {
+            latitude: item.geometry.location.lat,
+            longitude: item.geometry.location.lng,
+          };
+          return (
+            <DestinyMarker
+              key={`search-item-${i}`}
+              coordinate={coord}
+              title={item.name}
+              setDestination={setDestination}
+            />
+          );
+        })}
         <Marker
           coordinate={userLocation}
           image={require("../assets/images/user_location.png")}
           title="Tú ubicación"
         />
-        {destination ? (
+        {destination && (
           <MapViewDirections
             origin={origin}
             destination={destination}
@@ -97,8 +78,6 @@ export default function Map({
             strokeColor="blue"
             strokeWidth={8}
           />
-        ) : (
-          <></>
         )}
       </MapView>
     </StyledView>
@@ -114,6 +93,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
+
 
 type GeoJSONGeometryType =
   | "Point"
