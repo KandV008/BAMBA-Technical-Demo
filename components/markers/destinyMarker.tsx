@@ -9,7 +9,7 @@ interface DestinyMarkerProps {
 }
 
 /**
- * CustomMarker component
+ * DestinyMarker component
  * A modularized Marker with an `onPress` event to handle navigation logic.
  *
  * @param {LatLng} coordinate - The coordinates of the marker.

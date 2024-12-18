@@ -1,9 +1,5 @@
 import React, { MutableRefObject, useState } from "react";
-import {
-  Alert,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import { styled } from "nativewind";
 import MapView, {
   Geojson,
@@ -15,7 +11,8 @@ import MapView, {
 } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { GeoJsonData } from "@/lib/data";
-import DestinyMarker from "./destinyMarker";
+import DestinyMarker from "./markers/destinyMarker";
+import OriginMarker from "./markers/originMarker";
 
 const StyledView = styled(View);
 const key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_KEY;
@@ -65,11 +62,7 @@ export default function Map({
             />
           );
         })}
-        <Marker
-          coordinate={userLocation}
-          image={require("../assets/images/user_location.png")}
-          title="Tú ubicación"
-        />
+        <OriginMarker userLocation={userLocation} setOrigin={setOrigin} />
         {destination && (
           <MapViewDirections
             origin={origin}
@@ -93,7 +86,6 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
-
 
 type GeoJSONGeometryType =
   | "Point"
