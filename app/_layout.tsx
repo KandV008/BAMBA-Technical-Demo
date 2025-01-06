@@ -13,8 +13,15 @@ export default function RootLayout(): JSX.Element {
       <Stack.Screen
         name="index"
         options={{
-          headerTitle: "BAMBA-MVP", // Sets the title displayed in the header
-          headerTitleAlign: "center", // Centers the header title
+          headerTitle: "BAMBA - DEMO",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Stack.Screen
+        name="quiz"
+        options={{
+          headerTitle: "BAMBA - Cuestionario",
+          headerTitleAlign: "center",
         }}
       />
     </Stack>

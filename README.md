@@ -1,8 +1,8 @@
-# BAMBA-MVP
+# BAMBA - Technical Demo
 
-<p align="center">
-<strong>This project is now  in progress...</strong>
-</p>
+BAMBA is a mobile application that guides users through a city using a series of parameters that measure the safety of its streets.
+
+This project is a **technical demo**.
 
 ## :scroll:Table of Contents
 
@@ -84,7 +84,7 @@ The different functionalities will be shown together with the type of user that 
 | UH-07 Display route guide | Optional | :heavy_multiplication_x: |
 | UH-8 Emergency mode | Optional | :heavy_multiplication_x: |
 | UH-9 Call 112 | Optional | :heavy_check_mark: |
-| UH-10 Add Initial Cuestionary | Optional | :heavy_multiplication_x: |
+| UH-10 Add Cuestionary | Optional | :heavy_check_mark: |
 
 #### :warning: Explanations
 
@@ -100,7 +100,6 @@ The various quality requirements that the application must meet:
 | Oriented to smarth phones |
 | The app must run in Andorid and iOS |
 | The software must be implemented with React |
-| The applicaction need to connect with SQL Database |
 | GUI must be minimalist and user-friendly |
 | Responsive Design |
 | Usability & Accesibility |
@@ -112,7 +111,7 @@ These sections will show the design of the system.
 
 ### :church: Prototype
 
-The different screens of the prototype to be presented by the MVP:
+The different screens of the prototype to be presented by the demo:
 
 <p align="center">
   <img src="/docs/prototype/main_screen_prototype.png" alt="Main Screen Prototype">
@@ -124,7 +123,7 @@ This was made with [Figma](https://www.figma.com/es-es/). You can see the comple
 
 ### :house: Preview
 
-The different screens of the preview from the MVP:
+The different screens of the preview from the demo:
 
 <p align="center">
   <img src="/docs/preview/main_screen_preview.png" alt="Main Screen Prototype">
