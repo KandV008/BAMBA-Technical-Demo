@@ -2,13 +2,16 @@ import Map from "@/components/map";
 import NavigationBar from "@/components/navigationBar";
 import ToggleButton from "@/components/buttons/toggleButton";
 import SearchBar from "@/components/searchBar";
-import { Keyboard, View } from "react-native";
+import { Keyboard, Pressable, View } from "react-native";
 import { styled } from "nativewind";
 import MapTypeToggle from "@/components/toggleMenu/mapTypeMenu";
 import { useEffect, useRef, useState } from "react";
 import { MapTypeEnum } from "./model/mapTypeEnum";
 import MapView, { LatLng, Region } from "react-native-maps";
 import EmergencyButton from "@/components/buttons/emergencyButton";
+import Button from "@/components/buttons/button";
+import { Link, router } from "expo-router";
+import TextButton from "@/components/buttons/textButton";
 
 const StyledView = styled(View);
 
@@ -44,7 +47,10 @@ const userLocation: LatLng = {
  * @param {string} location - The location coordinates as a string.
  * @returns {Promise<any[]>} - A promise that resolves to an array of search results.
  */
-async function fetchSearchResults(searchText: string, location: string): Promise<any[]> {
+async function fetchSearchResults(
+  searchText: string,
+  location: string
+): Promise<any[]> {
   const url = `${googleApisUrl}?query=${encodeURIComponent(
     searchText
   )}&location=${location}&radius=20&key=${key}`;
@@ -146,6 +152,13 @@ export default function Index(): JSX.Element {
             children={<MapTypeToggle selectOption={selectMapType} />}
           />
         </StyledView>
+      </StyledView>
+      {/* Quiz Button */}
+      <StyledView className="absolute left-5 bottom-24 ">
+      <TextButton
+            buttonText={"Encuesta"}
+            onPress={() => router.push("./quiz")}
+          />
       </StyledView>
       {/* Emergency Button */}
       <StyledView className="absolute right-5 bottom-20 ">
