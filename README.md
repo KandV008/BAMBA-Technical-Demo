@@ -1,6 +1,6 @@
 # BAMBA - Technical Demo
 
-BAMBA is a mobile application that guides users through a city using a series of parameters that measure the safety of its streets.
+BAMBA is a mobile application that guides users through a city using a series of parameters that measure the safety of its streets (it is measured with the BAMBA index).
 
 This project is a **technical demo**.
 
@@ -17,6 +17,7 @@ This project is a **technical demo**.
     1. [Prototype](#church-prototype)
     1. [Preview](#house-preview)
     1. [SQL Database](#cd-sql-database)
+1. [What I Have Learned?](#v-what-have-i-learned)
 1. [License](#libra-license)
 
 ## :hammer: Usage
@@ -28,8 +29,8 @@ The steps to follow to use the application locally will be described.
 1. Clone the repository.
 
 ```
-git clone https://github.com/KandV008/Kala.git
-cd Kala
+git clone https://github.com/KandV008/BAMBA-MVP.git
+cd BAMBA-MVP
 ```
 
 2. Configure [Google Cloud API](#cloud-configure-google-cloud-api).
@@ -63,7 +64,6 @@ An active Google Cloud Platform account is required to use the application.
 APIs required for operation:
 - [Places API (New)](https://console.cloud.google.com/apis/library/places.googleapis.com)
 - [Directions API](https://console.cloud.google.com/apis/library/directions-backend.googleapis.com)
-
 
 ## :black_nib: Requirement Analysis
 
@@ -136,6 +136,14 @@ The different screens of the preview from the demo:
 There is no database. The format to work is with GeoJSON files. 
 
 See [data.ts](./lib/data.ts) for a example of the format.
+
+## :v: What have I learned?
+
+* The Expo framework
+* Navigate between screens using Expo
+* Working with Google Cloud Platform
+* Creation of navigation routes
+* Creation of Datasets to represent them on a map
 
 ## :libra: License
 
