@@ -29,7 +29,7 @@ The steps to follow to use the application locally will be described.
 1. Clone the repository.
 
 ```
-git clone https://github.com/KandV008/BAMBA-MVP.git
+git clone gh repo clone KandV008/BAMBA-Technical-Demo
 cd BAMBA-MVP
 ```
 
